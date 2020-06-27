@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "playuno-app": {
+      "hosting": {
+        "uno": [
+          "playuno-app"
+        ]
+      }
+    }
+  }
+}
