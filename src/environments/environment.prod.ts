@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  totalAvatarImages: 32,
   firebase: {
     apiKey: 'AIzaSyCKM0C5M2HZBSIAVajxewvDWVaPMi5MhyU',
     authDomain: 'playuno-app.firebaseapp.com',
