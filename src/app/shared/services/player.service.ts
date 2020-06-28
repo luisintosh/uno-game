@@ -23,18 +23,25 @@ export class PlayerService {
       });
   }
 
-  getPlayer(): Observable<Player> {
-    return this.player;
-  }
-
-  logIn(player: Player) {
-    return this.auth.signInAnonymously().then((userObject) => {
-      player.id = userObject.user.uid;
-      return this.api.set(this.basePath, player.id, player).then(() => this.player.next(player));
-    });
+  signIn() {
+    return this.auth.signInAnonymously();
   }
 
   logOut() {
     return this.auth.signOut();
+  }
+
+  getPlayer(): Observable<Player> {
+    return this.player.asObservable();
+  }
+
+  setPlayer(player: Player) {
+    return this.auth.currentUser.then((user) => {
+      player.id = user.uid;
+      return this.api.set(this.basePath, player.id, player).then((update: Player) => {
+        this.player.next(update);
+        return update;
+      });
+    });
   }
 }

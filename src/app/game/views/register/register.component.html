@@ -4,9 +4,15 @@
       <h2>Select your player name</h2>
       <div class="my-5"></div>
       <div class="input-group">
-        <input type="text" class="form-control p-0 pl-2" placeholder="Username" minlength="3" required />
+        <input
+          type="text"
+          placeholder="Username"
+          class="form-control p-0 pl-2"
+          [ngClass]="{ 'is-invalid': usernameForm.invalid && usernameForm.touched }"
+          [formControl]="usernameForm"
+        />
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="button" (click)="onEnter()" [disabled]="usernameForm.invalid">
             Enter
           </button>
         </div>

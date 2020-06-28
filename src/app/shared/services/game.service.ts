@@ -54,7 +54,7 @@ export class GameService {
     );
   }
 
-  setHots(player: Player): Observable<boolean> {
+  setHost(player: Player): Observable<boolean> {
     const game: Game = this.game$.value;
     game.setHost(player);
     return from(this.api.set<Game>(this.basePath, null, game)).pipe(
@@ -73,7 +73,8 @@ export class GameService {
     return this.game$.pipe(
       take(1),
       switchMap((game) => {
-        if (game && GameStatus.WAITING_FOR_PLAYERS === game.status) {
+        const existingUser = Object.values(game.players).find((p) => p.username === player.username);
+        if (game && GameStatus.WAITING_FOR_PLAYERS === game.status && !existingUser) {
           return from(this.api.update(`${this.basePath}/${game.id}/players`, player.id, player));
         } else {
           return of(null);
