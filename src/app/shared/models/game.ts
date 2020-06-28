@@ -41,6 +41,7 @@ export class Game {
   startGame() {
     this.status = GameStatus.STARTED;
     this.deck = new Deck();
+    this.newObjectUpdate = true;
   }
 
   updatePlayerAvatars() {
@@ -79,6 +80,10 @@ export class Game {
         this.handleWinner(payout.playerId);
         this.newObjectUpdate = true;
       });
+  }
+
+  getPlayersList() {
+    return Object.values(this.players);
   }
 
   private handleWinner(playerId: string) {

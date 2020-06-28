@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { Game } from '../models/game';
-import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { RealTimeDatabaseService } from './real-time-database.service';
 import { GameStatus } from '../enums/game-status.enum';
 import { Player } from '../models/player.interface';
@@ -22,6 +22,10 @@ export class GameService {
 
   getGame() {
     return this.game$.asObservable();
+  }
+
+  isCurrentUserHost() {
+    return this.game$.pipe(map((game) => game.hostId === this.currentPlayerId));
   }
 
   newGame() {
@@ -84,6 +88,18 @@ export class GameService {
         return !!response;
       })
     );
+  }
+
+  startGame() {
+    this.game$
+      .pipe(
+        take(1),
+        tap((game: Game) => {
+          game.startGame();
+          this.game$.next(game);
+        })
+      )
+      .subscribe();
   }
 
   private handleGameChanges() {

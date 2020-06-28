@@ -1,13 +1,45 @@
 <div class="vh-100 d-flex justify-content-center align-items-center">
-  <app-modal-layout class="col-6">
-    <div class="text-center">
-      <h2>Players</h2>
-      <div class="my-5"></div>
-      <ul class="list-group">
-        <li class="list-group-item">@Robert</li>
-        <li class="list-group-item">@Kim</li>
-        <li class="list-group-item">@Chilli</li>
-      </ul>
+  <app-modal-layout class="col-6" *ngIf="game">
+    <h2 class="text-center">Players</h2>
+    <div class="my-5"></div>
+    <input type="text" class="form-control" [value]="game.id" readonly />
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let player of game.getPlayersList()">
+        <div class="row">
+          <div class="col-2">
+            <img
+              class="rounded"
+              *ngIf="player.avatar"
+              [src]="getAvatar(player.avatar)"
+              [alt]="player.username"
+              height="50"
+            />
+          </div>
+          <div class="col align-self-center">
+            <h5>@{{ player.username }}</h5>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="my-3"></div>
+    <div class="footer">
+      <div class="row">
+        <div class="col-6">
+          <button class="btn btn-secondary" (click)="onClickBack()">
+            Back
+          </button>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-self-center">
+          <button class="btn btn-primary" *ngIf="isHost() | async; else noHostBlock" (click)="onStartGame()">
+            Start
+          </button>
+          <ng-template #noHostBlock>
+            <div class="text-muted">
+              Waiting for players...
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </app-modal-layout>
 </div>
