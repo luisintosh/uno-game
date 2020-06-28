@@ -3,16 +3,25 @@ import { Step } from '../models/step.interface';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { StepId } from '../enums/step-id.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StepperService {
-  private routes = ['start', 'set-player', 'waiting-for-players', 'game', 'winner'];
+  private routes = [StepId.START, StepId.SET_PLAYER, StepId.WAITING_FOR_PLAYERS, StepId.GAME, StepId.WINNER];
   private currentStep$ = new BehaviorSubject<Step>({ id: 0, completed: false });
 
   constructor(private router: Router) {
     this.handleSteps();
+  }
+
+  setStep(stepId: StepId) {
+    const nextStep: Step = {
+      id: this.routes.findIndex((id) => stepId === id),
+      completed: false,
+    };
+    this.currentStep$.next(nextStep);
   }
 
   currentStep(): Observable<Step> {
