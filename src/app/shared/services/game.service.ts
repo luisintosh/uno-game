@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription, of, from, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { Game } from '../models/game';
-import { filter, take, map, catchError, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { RealTimeDatabaseService } from './real-time-database.service';
 import { GameStatus } from '../enums/game-status.enum';
 import { Player } from '../models/player.interface';
@@ -24,12 +24,40 @@ export class GameService {
     return this.game$.asObservable();
   }
 
-  newGame(player: Player): Observable<boolean> {
-    this.currentPlayerId = player.id;
+  newGame() {
+    if (this.gameSubscription) {
+      this.gameSubscription.unsubscribe();
+    }
     const newGame = new Game();
-    newGame.setNewGame(player);
+    newGame.waitForPlayers();
     this.game$.next(newGame);
-    return from(this.api.set<Game>(this.basePath, null, newGame)).pipe(
+  }
+
+  joinGame(gameId: string): Observable<boolean> {
+    if (this.gameSubscription) {
+      this.gameSubscription.unsubscribe();
+    }
+    return this.api.getOne<Game>(this.basePath, gameId).pipe(
+      take(1),
+      map((response) => {
+        if (response && GameStatus.WAITING_FOR_PLAYERS === response.status) {
+          this.gameSubscription = this.api.getOne<Game>(this.basePath, gameId).subscribe((update) => {
+            const game: Game = this.game$.value || new Game();
+            Object.assign(game, update);
+            this.game$.next(game);
+          });
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+  }
+
+  setHots(player: Player): Observable<boolean> {
+    const game: Game = this.game$.value;
+    game.setHost(player);
+    return from(this.api.set<Game>(this.basePath, null, game)).pipe(
       map((response) => {
         this.gameSubscription = this.api
           .getOne<Game>(this.basePath, response.id)
@@ -40,27 +68,18 @@ export class GameService {
     );
   }
 
-  joinGame(gameId: string, player: Player): Observable<boolean> {
+  setPlayer(player: Player): Observable<boolean> {
     this.currentPlayerId = player.id;
-    this.game$.next(null);
-    return this.api.getOne<Game>(this.basePath, gameId).pipe(
+    return this.game$.pipe(
       take(1),
       switchMap((game) => {
-        if (game) {
-          return from(this.api.update(`${this.basePath}/${gameId}/players`, player.id, player));
+        if (game && GameStatus.WAITING_FOR_PLAYERS === game.status) {
+          return from(this.api.update(`${this.basePath}/${game.id}/players`, player.id, player));
         } else {
-          return throwError('No game');
+          return of(null);
         }
       }),
-      catchError(() => of(false)),
       map((response) => {
-        if (response) {
-          this.gameSubscription = this.api.getOne<Game>(this.basePath, gameId).subscribe((update) => {
-            const game: Game = this.game$.value || new Game();
-            Object.assign(game, update);
-            this.game$.next(game);
-          });
-        }
         return !!response;
       })
     );

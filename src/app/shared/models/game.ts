@@ -29,9 +29,12 @@ export class Game {
     Object.assign(this, data);
   }
 
-  setNewGame(player: Player) {
+  setHost(player: Player) {
     this.hostId = player.id;
     this.players[player.id] = player;
+  }
+
+  waitForPlayers() {
     this.status = GameStatus.WAITING_FOR_PLAYERS;
   }
 

@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <app-modal-layout class="col-6">
+    <div class="text-center">
+      <h2>UNO Online!</h2>
+      <div class="my-5"></div>
+      <button class="btn btn-primary" (click)="onNewGame()">
+        New Game
+      </button>
+      <div class="border-bottom my-3"></div>
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Game ID"
+          class="form-control p-0 pl-2"
+          [ngClass]="{ 'is-invalid': joinGameForm.invalid && joinGameForm.touched }"
+          [formControl]="joinGameForm"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" (click)="onJoinGame()" [disabled]="joinGameForm.invalid">
+            Join Game
+          </button>
+        </div>
+        <div class="invalid-feedback">
+          This game id doesn't exists, please try with another one.
+        </div>
+      </div>
+    </div>
+  </app-modal-layout>
+</div>
