@@ -1,1 +1,19 @@
-<p>register works!</p>
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <app-modal-layout class="col-6">
+    <div class="text-center">
+      <h2>Select your player name</h2>
+      <div class="my-5"></div>
+      <div class="input-group">
+        <input type="text" class="form-control p-0 pl-2" placeholder="Username" minlength="3" required />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            Enter
+          </button>
+        </div>
+        <div class="invalid-feedback">
+          We have an error using this username.
+        </div>
+      </div>
+    </div>
+  </app-modal-layout>
+</div>

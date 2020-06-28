@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StepperService } from '../shared/services/stepper.service';
-import { StepId } from '../shared/enums/step-id.enum';
 
 @Component({
   selector: 'app-game',
