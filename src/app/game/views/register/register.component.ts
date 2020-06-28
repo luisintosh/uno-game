@@ -13,7 +13,12 @@ import { Player } from '../../../shared/models/player.interface';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  usernameForm = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  usernameForm = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(12),
+    Validators.pattern('[a-zA-Z0-9_]+'),
+  ]);
 
   constructor(
     private stepperService: StepperService,
