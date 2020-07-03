@@ -1,0 +1,27 @@
+.player {
+  &.xs {
+    width: 50px;
+  }
+
+  &.sm {
+    width: 100px;
+  }
+
+  &.md {
+    width: 150px;
+  }
+
+  &.lg {
+    width: 200px;
+  }
+
+  .card-header,
+  .card-body {
+    padding: 0.5rem;
+  }
+
+  .card-body {
+    position: absolute;
+    bottom: 0;
+  }
+}

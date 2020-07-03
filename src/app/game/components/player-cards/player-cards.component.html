@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body">
+    <div class="player-cards__body d-flex">
+      <div class="d-none d-md-block p-3 border-right">
+        <app-player [cardSize]="'sm'" [player]="player"></app-player>
+      </div>
+      <div class="p-3 flex-grow-1">
+        <div class="position-relative h-100">
+          <swiper [config]="carouselConfig" class="player-cards__carousel">
+            <app-card *ngFor="let card of getPlayerCards()" [cardId]="card.id"></app-card>
+          </swiper>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
