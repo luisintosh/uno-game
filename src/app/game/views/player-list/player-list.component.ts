@@ -47,6 +47,6 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   getAvatar(avatarId) {
-    return `../../../../assets/images/avatars/${avatarId}.jpg`;
+    return `/assets/images/avatars/${avatarId}.jpg`;
   }
 }

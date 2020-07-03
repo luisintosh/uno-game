@@ -15,7 +15,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit(): void {}
 
   getAvatar() {
-    return `./../../../../assets/images/avatars/${this.player.avatar}.jpg`;
+    return `/assets/images/avatars/${this.player.avatar}.jpg`;
   }
 
   countPlayerCards() {

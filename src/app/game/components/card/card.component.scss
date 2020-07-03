@@ -15,7 +15,7 @@ $cardHeight: 1153 / $rows;
 }
 
 .uno-card {
-  background-image: url('./../../../../assets/images/uno_cards.png');
+  background-image: url('/assets/images/uno_cards.png');
   background-repeat: no-repeat;
   width: #{$cardWidth}px;
   height: #{$cardHeight}px;
@@ -23,7 +23,7 @@ $cardHeight: 1153 / $rows;
   border: initial;
 
   &.default {
-    background-image: url('./../../../../assets/images/uno_back.png');
+    background-image: url('/assets/images/uno_back.png');
   }
 
   @include uno-cards-sprites;
