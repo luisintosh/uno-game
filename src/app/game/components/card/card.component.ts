@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input() cardId: string;
+  @Input() cardId = '';
   @Input() selected: boolean;
   @Output() doubleClick = new EventEmitter<any>();
 

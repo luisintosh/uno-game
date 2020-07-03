@@ -22,6 +22,6 @@ export class PlayerCardsComponent {
   constructor() {}
 
   getPlayerCards() {
-    return Object.values(this.player.cards);
+    return this.player.cards ? Object.values(this.player.cards) : 0;
   }
 }
