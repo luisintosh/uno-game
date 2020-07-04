@@ -26,6 +26,10 @@ export class BoardComponent implements OnInit {
       });
   }
 
+  onRestartGame() {
+    this.gameService.restartGame();
+  }
+
   getPlayer(): Observable<Player> {
     return this.playerService.getPlayer().pipe(
       filter((player) => !!player),

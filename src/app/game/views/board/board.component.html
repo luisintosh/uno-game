@@ -1,6 +1,16 @@
 <div class="vh-100">
   <div class="row no-gutters flex-column vh-100">
     <div class="col-auto">
+      <div class="d-flex justify-content-between mt-2">
+        <button class="btn btn-info" (click)="onRestartGame()">
+          Restart
+        </button>
+        <button class="btn btn-info" [routerLink]="['/start']">
+          Leave
+        </button>
+      </div>
+    </div>
+    <div class="col-auto">
       <div class="d-block">
         <div class="py-4">
           <app-guest-list [players]="getGuestList()"></app-guest-list>

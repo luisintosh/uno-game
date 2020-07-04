@@ -102,6 +102,13 @@ export class GameService {
       .subscribe();
   }
 
+  restartGame() {
+    this.newGame();
+    const game = this.game$.value;
+    game.startGame();
+    this.game$.next(game);
+  }
+
   private handleGameChanges() {
     this.game$.pipe(filter((game) => game && this.currentPlayerId === game.hostId)).subscribe((game: Game) => {
       // add avatar image for users
