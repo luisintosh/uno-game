@@ -1,3 +1,7 @@
-<div class="d-flex justify-content-between overflow-auto">
-  <app-player class="mx-3" *ngFor="let player of players" [player]="player" [cardSize]="'md'"></app-player>
+<div class="row no-gutters">
+  <div class="col">
+    <swiper [config]="carouselConfig">
+      <app-player *ngFor="let player of players" [player]="player" [cardSize]="'md'"></app-player>
+    </swiper>
+  </div>
 </div>
