@@ -41,6 +41,7 @@ export class Game {
   startGame() {
     this.status = GameStatus.STARTED;
     this.deck = new Deck();
+    this.getFirstHand();
     this.newObjectUpdate = true;
   }
 
@@ -84,6 +85,12 @@ export class Game {
 
   getPlayersList() {
     return Object.values(this.players);
+  }
+
+  private getFirstHand() {
+    Object.keys(this.players).forEach((id) => {
+      this.players[id].cards = this.deck.getFirstHand();
+    });
   }
 
   private handleWinner(playerId: string) {
