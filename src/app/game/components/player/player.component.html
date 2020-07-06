@@ -1,7 +1,7 @@
 <div class="card player" [ngClass]="cardSize">
-  <div class="card-header">@{{ player.username }}</div>
-  <img [src]="getAvatar()" [alt]="player.username" class="card-img-top" />
-  <div class="card-body">
-    <span class="bg-info text-white p-1 rounded">[] x {{ countPlayerCards() }}</span>
+  <div class="player__username card-header bg-secondary text-white">@{{ player.username }}</div>
+  <img [src]="getAvatar()" [alt]="player.username" class="player__image card-img-top" />
+  <div class="player__info card-body">
+    <span class="bg-info text-white p-1 rounded font-weight-bold small">[] x {{ countPlayerCards() }}</span>
   </div>
 </div>
