@@ -26,5 +26,10 @@ $cardHeight: 1153 / $rows;
     background-image: url('/assets/images/uno_back.png');
   }
 
+  &.btn:focus,
+  .btn.focus {
+    border-radius: 15%;
+  }
+
   @include uno-cards-sprites;
 }

@@ -1,4 +1,8 @@
 .player-cards {
+  &.card {
+    background-color: rgba(45, 48, 53, 0.7);
+  }
+
   &__body {
     height: 180px;
   }

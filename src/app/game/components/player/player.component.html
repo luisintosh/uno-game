@@ -2,6 +2,8 @@
   <div class="player__username card-header bg-secondary text-white">@{{ player.username }}</div>
   <img [src]="getAvatar()" [alt]="player.username" class="player__image card-img-top" />
   <div class="player__info card-body">
-    <span class="bg-info text-white p-1 rounded font-weight-bold small">[] x {{ countPlayerCards() }}</span>
+    <span class="bg-info text-white p-1 rounded font-weight-bold small">
+      <i class="fas fa-square"></i> x {{ countPlayerCards() }}
+    </span>
   </div>
 </div>

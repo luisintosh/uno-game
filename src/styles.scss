@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import 'assets/css/style.red';
+
+.page-content {
+  background-image: url('/assets/images/background/background.png');
+  background-size: cover;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('/assets/images/background/left-planets.png'),
+      url('/assets/images/background/right-planets.png');
+    background-position: left center, right center;
+    background-repeat: no-repeat;
+    background-size: 10rem;
+  }
+}
